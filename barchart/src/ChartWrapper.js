@@ -3,9 +3,9 @@ import D3Chart from './D3Chart';
 
 class ChartWrapper extends React.Component {
   componentDidMount() {
-    this.state = {
+    this.setState({
       chart: new D3Chart(this.refs.chart)
-    }
+    });
   }
 
   shouldComponentUpdate() {
