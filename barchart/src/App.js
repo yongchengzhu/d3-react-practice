@@ -29,9 +29,10 @@ class App extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col xs={12}></Col>
+            <Col xs={12}>
+              <ChartWrapper gender={this.state.gender} />
+            </Col>
           </Row>
-          <ChartWrapper />
         </Container>
       </div>
     );

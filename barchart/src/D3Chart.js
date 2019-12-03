@@ -81,16 +81,15 @@ export default class D3Chart {
     
     this.yAxisCall = this.svg.append("g");
 
-    let flag = true;
-
-    d3.interval(() => {
-      this.data = flag? data1 : data2;
-      this.update();
-      flag = !flag;
-    }, 1000);
+    this.menData = data1;
+    this.womenData = data2;
+    
+    this.update("men");
   }
 
-  update = () => {
+  update = (gender) => {
+    this.data = gender == "men"? this.menData : this.womenData;
+
     const y = d3.scaleLinear()
       .domain([d3.min(this.data, d => d.height * 0.95), d3.max(this.data, d => d.height)])
       .range([HEIGHT, 0]);

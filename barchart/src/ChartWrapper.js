@@ -3,7 +3,17 @@ import D3Chart from './D3Chart';
 
 class ChartWrapper extends React.Component {
   componentDidMount() {
-    new D3Chart(this.refs.chart);
+    this.state = {
+      chart: new D3Chart(this.refs.chart)
+    }
+  }
+
+  shouldComponentUpdate() {
+    return false;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.state.chart.update(nextProps.gender);
   }
 
   render() {
