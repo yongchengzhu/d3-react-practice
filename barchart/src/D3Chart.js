@@ -106,10 +106,15 @@ export default class D3Chart {
       .data(this.data);
 
     // Exit
-    rects.exit().remove();
+    rects.exit()
+      .transition().duration(500)
+        .attr("height", 0)
+        .attr("y", HEIGHT)
+        .remove();
 
     // Update
     rects
+      .transition().duration(500)
       .attr("x", (d, i) => x(d.name))
       .attr("y", d => y(d.height))
       .attr("width", x.bandwidth)
@@ -118,13 +123,15 @@ export default class D3Chart {
     // Enter
     rects.enter().append("rect")
       .attr("x", (d, i) => x(d.name))
-      .attr("y", d => y(d.height))
+      .attr("fill", "grey")
       .attr("width", x.bandwidth)
-      .attr("height", (d, i) => HEIGHT - y(d.height))
-      .attr("fill", "grey");
+      .attr("y", HEIGHT)
+      .transition().duration(500)
+      .attr("y", d => y(d.height))
+      .attr("height", (d, i) => HEIGHT - y(d.height));
 
     
-    this.xAxisCall.call(d3.axisBottom(x));
-    this.yAxisCall.call(d3.axisLeft(y));
+    this.xAxisCall.transition().duration(500).call(d3.axisBottom(x));
+    this.yAxisCall.transition().duration(500).call(d3.axisLeft(y));
   }
 }
